@@ -146,6 +146,8 @@ const Search = () => {
         }else{
             setProfiles(null);
             setNoResult(false)
+            setIsoLoading(false)
+
         }
         return () => clearTimeout(timer);
     },[userSearch])  
@@ -154,24 +156,36 @@ const Search = () => {
         <div id='search'>
 
             <div id='search__container'>
-                <input type="checkbox" checked={allChecked} onChange={()=>selecAllProfiles()} />
-                <div>{counter}  elements selected</div>
-                <input 
-                    placeholder="Enter your search - min. 3 characters" 
-                    id='search__container__input' 
-                    type="text" 
-                    value={userSearch} 
-                    onChange={handleSubmit} />
-                {isLoading &&
-                    <Spinner/>
-                }
-                <div>
-                    <img id='img__bin' alt='bin' src={bin} onClick={()=>deleteProfilesSelected()}/>
+
+
+                <div id='search__container__input__spinner'>
+                    <input 
+                        placeholder="Enter your search - min. 3 characters" 
+                        id='search__container__input' 
+                        type="text" 
+                        value={userSearch} 
+                        onChange={handleSubmit} 
+                    />
+                    <div id='search__spinner' >
+                        {isLoading &&
+                            <Spinner/>
+                        }
+                    </div>
+                   
                 </div>
 
-                <div>
-                    <img id='img__copy' alt='copy' src={copy} onClick={()=>copyProfilesSelected()}/>
+                <div  id='search__container__option'>
+                    <div  id='search__container__checkbox'>
+                        <input type="checkbox" checked={allChecked} onChange={()=>selecAllProfiles()} />
+                        <div>{counter}  elements selected</div>
+                    </div>
+                
+                    <div  id='search__container__bin__copy'>
+                        <img id='img__bin' alt='bin' src={bin} onClick={()=>deleteProfilesSelected()}/>
+                        <img id='img__copy' alt='copy' src={copy} onClick={()=>copyProfilesSelected()}/>
+                    </div>
                 </div>
+
             </div>
 
             <div id='search__display'>
