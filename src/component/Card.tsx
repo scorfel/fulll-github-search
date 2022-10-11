@@ -1,5 +1,5 @@
 import "./Card.css"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
 interface profilcomplet{
     avatar_url: string,
@@ -11,29 +11,49 @@ interface profilcomplet{
 interface props {
     profile: profilcomplet,
     counter: number,
-    setCounter: React.Dispatch<React.SetStateAction<number>>
+    setCounter: React.Dispatch<React.SetStateAction<number>>,
+    setIdProfileSelected: React.Dispatch<React.SetStateAction<number[] | null>>,
+    idProfileSelected: number[] | null,
+    idElement: number,
+    profiles: object[],
+    setAllChecked: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-const Card = ({profile, counter, setCounter }: props) =>{
 
-const [isChecked, setIsChecked]= useState<boolean>(false)
+let arrayId: number[]
+const Card = ({profile, counter, setCounter, setIdProfileSelected,  idProfileSelected, idElement,profiles, setAllChecked }: props) =>{
+    
+    let index:number
+    const [isChecked, setIsChecked]= useState<boolean>(false)
 
-function handleChange(e: React.ChangeEvent<HTMLInputElement>){
-    if(isChecked){
-        setIsChecked(false)
-        setCounter(counter - 1)
-        console.log(e)
-    }else{
-        setIsChecked(true)
-        setCounter(counter + 1)
-        console.log(e.target.value)
+    function handleChange(e: React.ChangeEvent<HTMLInputElement>){
+        if(!isChecked){
+            setIsChecked(true)
+            setCounter(counter = counter + 1)
+            index = parseInt(e.target.value)
+            arrayId.push(index);
+            setIdProfileSelected(arrayId)
+        }else{
+            setAllChecked(false)
+            setIsChecked(false)
+            index = parseInt(e.target.value)
+            let idToDeletee:number = arrayId.indexOf(index)
+            arrayId.splice(idToDeletee, 1);
+            setCounter(counter = counter - 1)
+            setIdProfileSelected(arrayId)
+        }
     }
-    console.log('yes')
-}
+
+    useEffect(()=>{
+        arrayId = []
+        setIsChecked(false)
+        setCounter(0)
+    },[profiles])
+
     return(
         <div  className="card">
             <label className="card__container">
-                <input value={profile.id} type="checkbox" onChange={handleChange} checked={isChecked}/>
+                <input className="card__container__input" value={idElement} type="checkbox" onChange={handleChange} checked={isChecked}/>
                 <span className="checkmark"></span>
             </label>
             <div className="card__avatar">

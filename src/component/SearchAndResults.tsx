@@ -1,4 +1,6 @@
 import './SearchAndResults.css'
+import bin from '../asset/bin-svgrepo-com.svg'
+import copy from '../asset/copy-svgrepo-com.svg'
 import { useState, useEffect } from "react"
 import DisplayProfiles from "./DisplayProfiles"
 import Spinner from './Spinner'
@@ -16,11 +18,72 @@ const Search = () => {
     const [isLoading, setIsoLoading] = useState(false)
     const [rateLimitReach, setRateLimitReach] = useState(false)
     const [counter, setCounter] = useState<number>(0)
+    const [idProfileSelected, setIdProfileSelected] = useState<number[] | null>(null)
+    const [allChecked, setAllChecked] = useState<boolean>(false)
 
     let timer: number
     
     function handleSubmit(e: React.ChangeEvent<HTMLInputElement>){
         setUserSearch(e.target.value)
+    }
+
+    function copyProfilesSelected(): void{
+        if(profiles != null && idProfileSelected != null){
+            const byValue = (a:number,b:number) => a - b;
+            let idSort = [...idProfileSelected].sort(byValue);
+            let idSortReversed = idSort.reverse();
+            let cloneArrayProfiles = profiles.slice(0);
+            for (const element of idSortReversed) {
+                let profileToDuplicate = profiles[element]
+                cloneArrayProfiles.splice(element, 0 , profileToDuplicate )
+            }
+              setProfiles(cloneArrayProfiles)  
+              setCounter(0)
+        }
+    }
+
+    function deleteProfilesSelected(){
+        if(profiles != null && idProfileSelected != null){
+            if(allChecked){
+                setProfiles(null)
+                setAllChecked(false)
+                setCounter(0)
+                setUserSearch('')
+                return
+            }
+            let cloneArrayProfiles = profiles.slice(0);
+            for (const element of idProfileSelected) {
+                cloneArrayProfiles.splice(element, 1 )
+            }
+            setIdProfileSelected(null)
+            setProfiles(cloneArrayProfiles)  
+        }
+    }
+
+    function selecAllProfiles(){
+        if(profiles){
+            var elements = document.getElementsByClassName('card__container__input') as HTMLCollectionOf<HTMLInputElement>
+            if(!allChecked){
+                setAllChecked(true)
+                for (let i = 0; i < elements.length; i++) {
+                    console.log(elements[i].checked === true)
+                    if(elements[i].checked === false){
+                        elements[i].click();
+                    }
+                }
+                setCounter(elements.length)
+            }
+            else{
+                for (let i = 0; i < elements.length; i++) {
+                    console.log(elements[i].checked === true)
+                    if(elements[i].checked === true){
+                        elements[i].click();
+                    }
+                }
+                setAllChecked(false)
+                setCounter(0)
+            }
+        }
     }
 
     async function callApi() {
@@ -48,6 +111,11 @@ const Search = () => {
             setIsoLoading(false)
         }
     }
+    useEffect(()=>{
+        if(counter === 0){
+            setAllChecked(false)
+        }
+    },[counter])
 
     useEffect(()=>{
         if(userSearch.length > 2){
@@ -64,16 +132,38 @@ const Search = () => {
 
     return(
         <div id='search'>
+
             <div id='search__container'>
-                <div>{counter}</div>
-                <input placeholder="Enter your search - min. 3 characters" id='search__container__input' type="text" value={userSearch} onChange={handleSubmit} />
+                <input type="checkbox" checked={allChecked} onChange={()=>selecAllProfiles()} />
+                <div>{counter}  elements selected</div>
+                <input 
+                    placeholder="Enter your search - min. 3 characters" 
+                    id='search__container__input' 
+                    type="text" 
+                    value={userSearch} 
+                    onChange={handleSubmit} />
                 {isLoading &&
                     <Spinner/>
                 }
+                <div>
+                    <img id='img__bin' alt='bin' src={bin} onClick={()=>deleteProfilesSelected()}/>
+                </div>
+
+                <div>
+                    <img id='img__copy' alt='copy' src={copy} onClick={()=>copyProfilesSelected()}/>
+                </div>
             </div>
+
             <div id='search__display'>
                 {profiles &&
-                    <DisplayProfiles counter={counter} setCounter={setCounter}   array={profiles} />
+                    <DisplayProfiles    
+                        counter={counter}
+                        setCounter={setCounter} 
+                        setIdProfileSelected={setIdProfileSelected}  
+                        setAllChecked={setAllChecked}
+                        array={profiles}
+                        idProfileSelected={idProfileSelected}
+                    />
                 }
                 {noResult &&
                     <p>No result</p>

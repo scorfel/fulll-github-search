@@ -27,3 +27,9 @@
     /* background-color: rgb(255, 210, 234); */
 
 }
+#img__copy{
+    height: 20px;
+}
+#img__copy:hover, #img__bin:hover{
+    cursor: pointer;
+}

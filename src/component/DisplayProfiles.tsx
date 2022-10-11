@@ -4,14 +4,28 @@ import Card from "./Card"
 interface props {
     array: object[],
     counter: number,
-    setCounter: React.Dispatch<React.SetStateAction<number>>
+    setCounter: React.Dispatch<React.SetStateAction<number>>,
+    setIdProfileSelected: React.Dispatch<React.SetStateAction<number[] | null>>,
+    idProfileSelected: number[] | null,
+    setAllChecked: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-const DisplayProfiles  = ({array, counter, setCounter }: props)=> {
+const DisplayProfiles  = ({array, counter, setCounter, setIdProfileSelected, idProfileSelected, setAllChecked }: props)=> {
+    let i:number = 0
     return(
         <div id="DisplayProfiles">
             {array.map((profile: any)=>
-                    <Card key={profile.id} profile={profile} counter={counter} setCounter={setCounter}  />
+                <Card   
+                    key={i}
+                    profiles={array}
+                    idElement={i++}
+                    profile={profile} 
+                    counter={counter} 
+                    setCounter={setCounter} 
+                    setIdProfileSelected={setIdProfileSelected}
+                    idProfileSelected={idProfileSelected}
+                    setAllChecked={setAllChecked}
+                />
             )}
         </div>
     )
