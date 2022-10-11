@@ -11,6 +11,11 @@ const Search = () => {
         items: object[],
         total_count: number,
     }
+    interface Object{
+        cloneArrayProfiles:object[],
+        idSortReversed:number[]
+
+    }
 
     const [userSearch, setUserSearch] = useState('')
     const [profiles, setProfiles] = useState<object[] | null>(null)
@@ -27,18 +32,30 @@ const Search = () => {
         setUserSearch(e.target.value)
     }
 
-    function copyProfilesSelected(): void{
-        if(profiles != null && idProfileSelected != null){
-            const byValue = (a:number,b:number) => a - b;
-            let idSort = [...idProfileSelected].sort(byValue);
+    function inverseOrderIndex(){
+        let idSort:number[]
+        const byValue = (a:number,b:number) => a - b;
+        if(idProfileSelected && profiles != null){
+            idSort = [...idProfileSelected].sort(byValue);
             let idSortReversed = idSort.reverse();
             let cloneArrayProfiles = profiles.slice(0);
-            for (const element of idSortReversed) {
-                let profileToDuplicate = profiles[element]
-                cloneArrayProfiles.splice(element, 0 , profileToDuplicate )
+            return {idSortReversed, cloneArrayProfiles}
+        }   
+    }
+
+    function copyProfilesSelected(): void{
+        if(profiles != null && idProfileSelected != null){
+            let allArray: Object | undefined = inverseOrderIndex()
+            console.log(typeof allArray)
+            if(allArray !== undefined){
+                for (const element of allArray.idSortReversed) {
+                    let profileToDuplicate = profiles[element]
+                    allArray.cloneArrayProfiles.splice(element, 0 , profileToDuplicate )
+                }
+                setProfiles(allArray.cloneArrayProfiles)  
+                setCounter(0)
+                setIdProfileSelected(null)
             }
-              setProfiles(cloneArrayProfiles)  
-              setCounter(0)
         }
     }
 
@@ -51,15 +68,14 @@ const Search = () => {
                 setUserSearch('')
                 return
             }
-            const byValue = (a:number,b:number) => a - b;
-            let idSort = [...idProfileSelected].sort(byValue);
-            let idSortReversed = idSort.reverse();
-            let cloneArrayProfiles = profiles.slice(0);
-            for (const element of idSortReversed) {
-                cloneArrayProfiles.splice(element, 1 )
+            let allArray: Object | undefined = inverseOrderIndex()
+            if(allArray !== undefined){
+                for (const element of allArray.idSortReversed) {
+                    allArray.cloneArrayProfiles.splice(element, 1 )
+                }
+                setIdProfileSelected(null)
+                setProfiles(allArray.cloneArrayProfiles)  
             }
-            setIdProfileSelected(null)
-            setProfiles(cloneArrayProfiles)  
         }
     }
 
@@ -114,6 +130,7 @@ const Search = () => {
             setIsoLoading(false)
         }
     }
+    
     useEffect(()=>{
         if(counter === 0){
             setAllChecked(false)
