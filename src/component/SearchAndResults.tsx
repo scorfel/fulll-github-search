@@ -15,6 +15,7 @@ const Search = () => {
     const [noResult, setNoResult] = useState(false)
     const [isLoading, setIsoLoading] = useState(false)
     const [rateLimitReach, setRateLimitReach] = useState(false)
+    const [counter, setCounter] = useState<number>(0)
 
     let timer: number
     
@@ -64,6 +65,7 @@ const Search = () => {
     return(
         <div id='search'>
             <div id='search__container'>
+                <div>{counter}</div>
                 <input placeholder="Enter your search - min. 3 characters" id='search__container__input' type="text" value={userSearch} onChange={handleSubmit} />
                 {isLoading &&
                     <Spinner/>
@@ -71,7 +73,7 @@ const Search = () => {
             </div>
             <div id='search__display'>
                 {profiles &&
-                    <DisplayProfiles  array={profiles} />
+                    <DisplayProfiles counter={counter} setCounter={setCounter}   array={profiles} />
                 }
                 {noResult &&
                     <p>No result</p>
