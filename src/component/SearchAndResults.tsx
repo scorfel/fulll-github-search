@@ -51,8 +51,11 @@ const Search = () => {
                 setUserSearch('')
                 return
             }
+            const byValue = (a:number,b:number) => a - b;
+            let idSort = [...idProfileSelected].sort(byValue);
+            let idSortReversed = idSort.reverse();
             let cloneArrayProfiles = profiles.slice(0);
-            for (const element of idProfileSelected) {
+            for (const element of idSortReversed) {
                 cloneArrayProfiles.splice(element, 1 )
             }
             setIdProfileSelected(null)
