@@ -1,0 +1,67 @@
+.card{
+    background-color: #D5D5D5;
+    width: 100px;
+    height: 150px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    box-shadow: 8px 7px 7px -3px #5C5C5C;
+}
+.card__avatar{
+    /* background-color: darkslategray; */
+    margin-top: 5px;
+}
+.card__avatar img{
+    /* background-color: burlywood; */
+    width: 50px;
+    border-radius: 50%;
+}
+.card__profil{
+    margin-top: 5px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    /* background-color: darkmagenta; */
+}
+.card__profil p{
+    /* background-color: azure; */
+    margin: 0;
+    font-size: 0.8em;
+    font-weight: 600;
+    overflow-wrap: break-word;
+    width: 80%;
+
+}
+.card__link{
+    margin-top: 5px;
+    margin-bottom: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* background-color: darkslateblue; */
+}
+.card__link a{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    background-color: #00A1FF;
+    border: none;
+    width: 70px;
+    height: 20px;
+    font-size: 0.6em;
+    transition: 0.3s;
+    text-decoration: none;
+    color: black;
+
+    /* background-color: darkslateblue; */
+}
+.card__link a:hover{
+    background-color: rgb(144, 164, 252);
+    cursor: pointer;
+    transition: 0.3s;
+    /* background-colorgb(221, 221, 221)arkslateblue; */
+}

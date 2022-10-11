@@ -1,0 +1,10 @@
+#header{
+    height: 64px;
+    background-color: #929292;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+#header__h1{
+    font-size: 1.3em;
+}
