@@ -8,10 +8,24 @@
     justify-content: space-around;
     box-shadow: 8px 7px 7px -3px #5C5C5C;
 }
+.card--alt{
+    background-color: #D5D5D5;
+    height: 210px;
+    width: 190px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    box-shadow: 8px 7px 7px -3px #5C5C5C;
+}
 
 
 
 .card__avatar{
+    /* background-color: darkslategray; */
+    margin-top: 10px;
+}
+.card__avatar--alt{
     /* background-color: darkslategray; */
     margin-top: 5px;
 }
@@ -20,15 +34,20 @@
     width: 50px;
     border-radius: 50%;
 }
-.card__profil{
+.card__avatar--alt img{
+    /* background-color: burlywood; */
+    width: 56px;
+    border-radius: 50%;
+}
+.card__profil, .card__profil--alt{
     margin-top: 5px;
-
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     /* background-color: darkmagenta; */
 }
+
 .card__profil p{
     /* background-color: azure; */
     margin: 0;
@@ -36,11 +55,26 @@
     font-weight: 600;
     overflow-wrap: break-word;
     width: 80%;
-
+}
+.card__profil--alt p{
+    /* background-color: azure; */
+    margin: 0;
+    font-size: 0.8em;
+    font-weight: 700;
+    overflow-wrap: break-word;
+    width: 80%;
 }
 .card__link{
     margin-top: 5px;
     margin-bottom: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* background-color: darkslateblue; */
+}
+.card__link--alt{
+    margin-top: 5px;
+    margin-bottom: 20px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -59,7 +93,22 @@
     transition: 0.3s;
     text-decoration: none;
     color: black;
-
+    /* background-color: darkslateblue; */
+}
+.card__link--alt a{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    background-color: #00A1FF;
+    border: none;
+    width: 130px;
+    height: 40px;
+    font-size: 0.8em;
+    font-weight: 600;
+    transition: 0.3s;
+    text-decoration: none;
+    color: black;
     /* background-color: darkslateblue; */
 }
 .card__link a:hover{

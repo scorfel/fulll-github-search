@@ -60,7 +60,7 @@ const Card = ({profile, counter, setCounter, setIdProfileSelected,  idProfileSel
             <div className="card__avatar">
                 <img alt="user avatar" src={profile.avatar_url}></img>
             </div>
-            <div className="card__profil">
+            <div className="card__profil--alt">
                 <p>{profile.id}</p>
                 <p>{profile.login}</p>
             </div>
