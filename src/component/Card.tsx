@@ -18,11 +18,12 @@ interface props {
     profiles: object[],
     setAllChecked: React.Dispatch<React.SetStateAction<boolean>>,
     editMode: boolean
+    alternatriveStyle: boolean
 }
 
 
 let arrayId: number[]
-const Card = ({profile, counter, setCounter, setIdProfileSelected,  idProfileSelected, idElement,profiles, setAllChecked,editMode }: props) =>{
+const Card = ({profile, counter, setCounter, setIdProfileSelected,  idProfileSelected, idElement,profiles, setAllChecked,editMode, alternatriveStyle }: props) =>{
     
     let index:number
     const [isChecked, setIsChecked]= useState<boolean>(false)
@@ -52,7 +53,7 @@ const Card = ({profile, counter, setCounter, setIdProfileSelected,  idProfileSel
     },[profiles])
 
     return(
-        <div  className="card">
+        <div  className={alternatriveStyle ?  "card--alt" : "card" }>
             <label className={editMode ? "card__container" : "card__container--disabled"}>
                 <input className="card__container__input" value={idElement} type="checkbox" onChange={handleChange} checked={isChecked}/>
                 <span className="checkmark"></span>

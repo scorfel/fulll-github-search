@@ -8,10 +8,11 @@ interface props {
     setIdProfileSelected: React.Dispatch<React.SetStateAction<number[] | null>>,
     idProfileSelected: number[] | null,
     setAllChecked: React.Dispatch<React.SetStateAction<boolean>>,
-    editMode: boolean
+    editMode: boolean,
+    alternatriveStyle: boolean
 }
 
-const DisplayProfiles  = ({array, counter, setCounter, setIdProfileSelected, idProfileSelected, setAllChecked, editMode }: props)=> {
+const DisplayProfiles  = ({array, counter, setCounter, setIdProfileSelected, idProfileSelected, setAllChecked, editMode, alternatriveStyle }: props)=> {
     let i:number = 0
     return(
         <div id="DisplayProfiles">
@@ -27,6 +28,7 @@ const DisplayProfiles  = ({array, counter, setCounter, setIdProfileSelected, idP
                     idProfileSelected={idProfileSelected}
                     setAllChecked={setAllChecked}
                     editMode={editMode}
+                    alternatriveStyle={alternatriveStyle}
                 />
             )}
         </div>

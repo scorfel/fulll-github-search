@@ -1,15 +1,28 @@
+import React from "react"
 import "./Header.css"
 
 const titre: string = "Github Search"
 
-const Header = () =>{
+interface props{
+    setAlternatriveStyle: React.Dispatch<React.SetStateAction<boolean>>,
+    alternatriveStyle: boolean
+}
+
+const Header = ({alternatriveStyle, setAlternatriveStyle}:props) =>{
+
+    function toogleStyle(){
+        alternatriveStyle ?
+            setAlternatriveStyle(false)
+            :
+            setAlternatriveStyle(true)
+    }
 
     return(
         <div id="header">
 
             <div id="header__container__switch">
                 <label className="switch">
-                    <input type="checkbox" />
+                    <input type="checkbox" onChange={()=>{toogleStyle()}} />
                     <span className="slider round"></span>
                 </label>
                 <p>Alternative style</p>

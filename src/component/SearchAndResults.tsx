@@ -5,7 +5,9 @@ import { useState, useEffect } from "react"
 import DisplayProfiles from "./DisplayProfiles"
 import Spinner from './Spinner'
 
-const Search = () => {
+
+
+const Search = ( {alternatriveStyle}:{alternatriveStyle:boolean}) => {
 
     interface responseCallApi{
         items: object[],
@@ -220,6 +222,7 @@ const Search = () => {
                         array={profiles}
                         idProfileSelected={idProfileSelected}
                         editMode={editMode}
+                        alternatriveStyle={alternatriveStyle}
                     />
                 }
                 {noResult &&
