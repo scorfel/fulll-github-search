@@ -1,71 +1,71 @@
-.card{
-    background-color: #D5D5D5;
-    width: 100px;
-    height: 170px;
-    border-radius: 10px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    box-shadow: 8px 7px 7px -3px #5C5C5C;
-}
-.card__avatar{
-    /* background-color: darkslategray; */
-    margin-top: 10px;
-}
-.card__avatar img{
-    /* background-color: burlywood; */
-    width: 50px;
-    border-radius: 50%;
-}
-.card__profil, .card__profil--alt{
-    margin-top: 5px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    /* background-color: darkmagenta; */
-}
-.card__profil p{
-    /* background-color: azure; */
-    margin: 0;
-    font-size: 0.8em;
-    font-weight: 600;
-    overflow-wrap: break-word;
-    width: 80%;
-}
-.card__link{
-    margin-top: 5px;
-    margin-bottom: 5px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    /* background-color: darkslateblue; */
+.card {
+  background-color: #D5D5D5;
+  width: 100px;
+  height: 170px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  box-shadow: 8px 7px 7px -3px #5C5C5C;
 }
 
-.card__link a{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 8px;
-    background-color: #00A1FF;
-    border: none;
-    width: 70px;
-    height: 20px;
-    font-size: 0.6em;
-    transition: 0.3s;
-    text-decoration: none;
-    color: black;
-    /* background-color: darkslateblue; */
+.card__avatar {
+  margin-top: 10px;
 }
-.card__link a:hover{
-    background-color: rgb(144, 164, 252);
-    cursor: pointer;
-    transition: 0.3s;
-    /* background-colorgb(221, 221, 221)arkslateblue; */
+
+.card__avatar img {
+  width: 50px;
+  border-radius: 50%;
+}
+
+.card__profil,
+.card__profil--alt {
+  margin-top: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.card__profil p {
+  margin: 0;
+  font-size: 0.8em;
+  font-weight: 600;
+  overflow-wrap: break-word;
+  width: 80%;
+}
+
+.card__link {
+  margin-top: 5px;
+  margin-bottom: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card__link a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  background-color: #00A1FF;
+  border: none;
+  width: 70px;
+  height: 20px;
+  font-size: 0.6em;
+  transition: 0.3s;
+  text-decoration: none;
+  color: black;
+}
+
+.card__link a:hover {
+  background-color: rgb(144, 164, 252);
+  cursor: pointer;
+  transition: 0.3s;
 }
 
 /*------style alternatif----*/
-.card--alt{
+.card--alt {
   background-color: #D5D5D5;
   height: 320px;
   width: 290px;
@@ -75,32 +75,29 @@
   justify-content: space-between;
   box-shadow: 8px 7px 7px -3px #5C5C5C;
 }
-.card__avatar--alt{
-  /* background-color: darkslategray; */
-  /* margin-top: 5px; */
-}
-.card__avatar--alt img{
-  /* background-color: burlywood; */
+
+.card__avatar--alt img {
   width: 82px;
   border-radius: 50%;
 }
-.card__profil--alt p{
-  /* background-color: azure; */
+
+.card__profil--alt p {
   margin: 0;
   font-size: 1.1em;
   font-weight: 700;
   overflow-wrap: break-word;
   width: 80%;
 }
-.card__link--alt{
+
+.card__link--alt {
   margin-top: 5px;
   margin-bottom: 20px;
   display: flex;
   align-items: center;
   justify-content: center;
-  /* background-color: darkslateblue; */
 }
-.card__link--alt a{
+
+.card__link--alt a {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -115,12 +112,10 @@
   text-decoration: none;
   color: black;
   margin-bottom: 20px;
-  /* background-color: darkslateblue; */
 }
 
 
 /*------------------checkbox style------------------*/
-/* Customize the label (the card__container) */
 .card__container {
   display: block;
   position: relative;
@@ -134,14 +129,12 @@
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
-
 }
+
 .card__container--disabled {
-display: none;
-
+  display: none;
 }
 
-/* Hide the browser's default checkbox */
 .card__container input {
   position: absolute;
   opacity: 0;
@@ -150,7 +143,6 @@ display: none;
   width: 0;
 }
 
-/* Create a custom checkbox */
 .checkmark {
   position: absolute;
   top: 0;
@@ -163,29 +155,24 @@ display: none;
 
 }
 
-/* On mouse-over, add a grey background color */
-.card__container:hover input ~ .checkmark {
+.card__container:hover input~.checkmark {
   background-color: #ccc;
 }
 
-/* When the checkbox is checked, add a blue background */
-.card__container input:checked ~ .checkmark {
+.card__container input:checked~.checkmark {
   background-color: #2196F3;
 }
 
-/* Create the checkmark/indicator (hidden when not checked) */
 .checkmark:after {
   content: "";
   position: absolute;
   display: none;
 }
 
-/* Show the checkmark when checked */
-.card__container input:checked ~ .checkmark:after {
+.card__container input:checked~.checkmark:after {
   display: block;
 }
 
-/* Style the checkmark/indicator */
 .card__container .checkmark:after {
   left: 3px;
   top: 3px;

@@ -1,6 +1,6 @@
 import Header from './component/Header';
 import SearchAndResults from "./component/SearchAndResults"
-import {useState} from 'react'
+import { useState } from 'react'
 import './App.css';
 
 function App() {
@@ -9,8 +9,8 @@ function App() {
 
   return (
     <div className="App">
-      <Header alternatriveStyle={alternatriveStyle} setAlternatriveStyle={setAlternatriveStyle}/>
-      <SearchAndResults  alternatriveStyle={alternatriveStyle} />
+      <Header alternatriveStyle={alternatriveStyle} setAlternatriveStyle={setAlternatriveStyle} />
+      <SearchAndResults alternatriveStyle={alternatriveStyle} />
     </div>
   );
 }

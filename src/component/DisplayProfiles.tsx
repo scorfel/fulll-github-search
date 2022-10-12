@@ -12,18 +12,18 @@ interface props {
     alternatriveStyle: boolean
 }
 
-const DisplayProfiles  = ({array, counter, setCounter, setIdProfileSelected, idProfileSelected, setAllChecked, editMode, alternatriveStyle }: props)=> {
-    let i:number = 0
-    return(
+const DisplayProfiles = ({ array, counter, setCounter, setIdProfileSelected, idProfileSelected, setAllChecked, editMode, alternatriveStyle }: props) => {
+    let i: number = 0
+    return (
         <div id="DisplayProfiles">
-            {array.map((profile: any)=>
-                <Card   
+            {array.map((profile: any) =>
+                <Card
                     key={i}
                     profiles={array}
                     idElement={i++}
-                    profile={profile} 
-                    counter={counter} 
-                    setCounter={setCounter} 
+                    profile={profile}
+                    counter={counter}
+                    setCounter={setCounter}
                     setIdProfileSelected={setIdProfileSelected}
                     idProfileSelected={idProfileSelected}
                     setAllChecked={setAllChecked}
