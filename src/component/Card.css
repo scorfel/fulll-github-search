@@ -88,6 +88,10 @@
   user-select: none;
 
 }
+.card__container--disabled {
+display: none;
+
+}
 
 /* Hide the browser's default checkbox */
 .card__container input {

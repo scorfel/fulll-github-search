@@ -25,6 +25,7 @@ const Search = () => {
     const [counter, setCounter] = useState<number>(0)
     const [idProfileSelected, setIdProfileSelected] = useState<number[] | null>(null)
     const [allChecked, setAllChecked] = useState<boolean>(false)
+    const [editMode, setEditMode] = useState<boolean>(false)
 
     let timer: number
     
@@ -105,6 +106,14 @@ const Search = () => {
         }
     }
 
+    function changeEditMode(): void{
+        editMode ?
+            setEditMode(false)
+            :
+            setEditMode(true)
+        console.log(editMode)
+    }
+
     async function callApi() {
         try{
             const response = await fetch(`https://api.github.com/search/users?q=${userSearch}`);
@@ -158,23 +167,36 @@ const Search = () => {
             <div id='search__container'>
 
 
-                <div id='search__container__input__spinner'>
-                    <input 
-                        placeholder="Enter your search - min. 3 characters" 
-                        id='search__container__input' 
-                        type="text" 
-                        value={userSearch} 
-                        onChange={handleSubmit} 
-                    />
-                    <div id='search__spinner' >
-                        {isLoading &&
-                            <Spinner/>
-                        }
+                <div id='search__container__switch__input__spinner'>
+
+                    <div id='search__container__switch'>
+                        <label className="switch">
+                            <input type="checkbox"  onChange={changeEditMode} />
+                            <span className="slider round"></span>
+                        </label>
+                        <p>Edit mode</p>
                     </div>
+
+                    <div id='search__container__input__spinner'>
+                        <input 
+                            placeholder="Enter your search - min. 3 characters" 
+                            id='search__container__input' 
+                            type="text" 
+                            value={userSearch} 
+                            onChange={handleSubmit} 
+                        />
+                        <div id='search__spinner' >
+                            {isLoading &&
+                                <Spinner/>
+                            }
+                        </div>
+
+                    </div>
+
                    
                 </div>
 
-                <div  id='search__container__option'>
+                <div    id={editMode ?'search__container__option' : 'search__container__option--disabled'}>
                     <div  id='search__container__checkbox'>
                         <input type="checkbox" checked={allChecked} onChange={()=>selecAllProfiles()} />
                         <div>{counter}  elements selected</div>
@@ -197,6 +219,7 @@ const Search = () => {
                         setAllChecked={setAllChecked}
                         array={profiles}
                         idProfileSelected={idProfileSelected}
+                        editMode={editMode}
                     />
                 }
                 {noResult &&
