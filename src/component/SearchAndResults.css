@@ -86,7 +86,9 @@ display: none;
     cursor: pointer;
 }
 
-/*---------------------------------- button switch-------------------------*/
+
+
+/*------------- button switch-------------------------*/
 /* The switch - the box around the slider */
 #search__container__switch{
     width: 150px;

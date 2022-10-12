@@ -1,3 +1,8 @@
+
+
+/*toogle switch css in 'SearchAndResult.css' file--------------*/
+
+
 #header{
     height: 64px;
     background-color: #929292;
@@ -5,6 +10,14 @@
     align-items: center;
     justify-content: center;
 }
+#header__container__switch{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    position: absolute;
+    left: 16px;
+}
 #header__h1{
     font-size: 1.3em;
 }
+
