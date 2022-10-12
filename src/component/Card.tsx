@@ -58,14 +58,14 @@ const Card = ({profile, counter, setCounter, setIdProfileSelected,  idProfileSel
                 <input className="card__container__input" value={idElement} type="checkbox" onChange={handleChange} checked={isChecked}/>
                 <span className="checkmark"></span>
             </label>
-            <div className="card__avatar">
+            <div className={alternatriveStyle ?  "card__avatar--alt" : "card__avatar" }>
                 <img alt="user avatar" src={profile.avatar_url}></img>
             </div>
-            <div className="card__profil--alt">
+            <div className={alternatriveStyle ?  "card__profil--alt" : "card__profil" }>
                 <p>{profile.id}</p>
                 <p>{profile.login}</p>
             </div>
-            <div className="card__link">
+            <div className={alternatriveStyle ?  "card__link--alt" : "card__link" }>
                 <a rel="noreferrer" target='_blank' href={profile.html_url}>View profile</a>
             </div>
         </div>
