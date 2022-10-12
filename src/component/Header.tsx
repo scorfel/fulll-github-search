@@ -8,9 +8,9 @@ interface props {
     alternatriveStyle: boolean
 }
 
-const Header = ({ alternatriveStyle, setAlternatriveStyle }: props) => {
+const Header = ({ alternatriveStyle, setAlternatriveStyle }: props): JSX.Element => {
 
-    function toogleStyle() {
+    function toogleStyle(): void {
         alternatriveStyle ?
             setAlternatriveStyle(false)
             :

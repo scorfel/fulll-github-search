@@ -10,8 +10,8 @@ interface profilcomplet {
 
 interface props {
     profile: profilcomplet,
-    counter: number,
-    setCounter: React.Dispatch<React.SetStateAction<number>>,
+    counterSelected: number,
+    setCounterSelected: React.Dispatch<React.SetStateAction<number>>,
     setIdProfileSelected: React.Dispatch<React.SetStateAction<number[] | null>>,
     idProfileSelected: number[] | null,
     idElement: number,
@@ -21,34 +21,43 @@ interface props {
     alternatriveStyle: boolean
 }
 
-let arrayId: number[]
-const Card = ({ profile, counter, setCounter, setIdProfileSelected, idElement, profiles, setAllChecked, editMode, alternatriveStyle }: props) => {
+let arrayIdSelected: number[]
+const Card = ({
+    profile,
+    counterSelected,
+    setCounterSelected,
+    setIdProfileSelected,
+    idElement,
+    profiles,
+    setAllChecked,
+    editMode,
+    alternatriveStyle }: props): JSX.Element => {
 
-    let index: number
+    let indexSelected: number
     const [isChecked, setIsChecked] = useState<boolean>(false)
 
     function handleChange(e: React.ChangeEvent<HTMLInputElement>): void {
         if (!isChecked) {
             setIsChecked(true)
-            setCounter(counter = counter + 1)
-            index = parseInt(e.target.value)
-            arrayId.push(index);
-            setIdProfileSelected(arrayId)
+            setCounterSelected(counterSelected = counterSelected + 1)
+            indexSelected = parseInt(e.target.value)
+            arrayIdSelected.push(indexSelected);
+            setIdProfileSelected(arrayIdSelected)
         } else {
             setAllChecked(false)
             setIsChecked(false)
-            index = parseInt(e.target.value)
-            let idToDeletee: number = arrayId.indexOf(index)
-            arrayId.splice(idToDeletee, 1);
-            setCounter(counter = counter - 1)
-            setIdProfileSelected(arrayId)
+            indexSelected = parseInt(e.target.value)
+            let idToDeletee: number = arrayIdSelected.indexOf(indexSelected)
+            arrayIdSelected.splice(idToDeletee, 1);
+            setCounterSelected(counterSelected = counterSelected - 1)
+            setIdProfileSelected(arrayIdSelected)
         }
     }
 
     useEffect(() => {
-        arrayId = []
+        arrayIdSelected = []
         setIsChecked(false)
-        setCounter(0)
+        setCounterSelected(0)
     }, [profiles])
 
     return (

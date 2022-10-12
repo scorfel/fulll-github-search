@@ -2,9 +2,9 @@ import './DisplayProfiles.css'
 import Card from "./Card"
 
 interface props {
-    array: object[],
-    counter: number,
-    setCounter: React.Dispatch<React.SetStateAction<number>>,
+    profiles: object[],
+    counterSelected: number,
+    setCounterSelected: React.Dispatch<React.SetStateAction<number>>,
     setIdProfileSelected: React.Dispatch<React.SetStateAction<number[] | null>>,
     idProfileSelected: number[] | null,
     setAllChecked: React.Dispatch<React.SetStateAction<boolean>>,
@@ -12,18 +12,27 @@ interface props {
     alternatriveStyle: boolean
 }
 
-const DisplayProfiles = ({ array, counter, setCounter, setIdProfileSelected, idProfileSelected, setAllChecked, editMode, alternatriveStyle }: props) => {
+const DisplayProfiles = ({
+    profiles,
+    counterSelected,
+    setCounterSelected,
+    setIdProfileSelected,
+    idProfileSelected,
+    setAllChecked,
+    editMode,
+    alternatriveStyle }: props): JSX.Element => {
+
     let i: number = 0
     return (
         <div id="DisplayProfiles">
-            {array.map((profile: any) =>
+            {profiles.map((profile: any) =>
                 <Card
                     key={i}
-                    profiles={array}
+                    profiles={profiles}
                     idElement={i++}
                     profile={profile}
-                    counter={counter}
-                    setCounter={setCounter}
+                    counterSelected={counterSelected}
+                    setCounterSelected={setCounterSelected}
                     setIdProfileSelected={setIdProfileSelected}
                     idProfileSelected={idProfileSelected}
                     setAllChecked={setAllChecked}

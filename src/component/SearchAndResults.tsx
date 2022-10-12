@@ -5,15 +5,15 @@ import { useState, useEffect } from "react"
 import DisplayProfiles from "./DisplayProfiles"
 import Spinner from './Spinner'
 
-const Search = ({ alternatriveStyle }: { alternatriveStyle: boolean }) => {
+const SearchAndResult = ({ alternatriveStyle }: { alternatriveStyle: boolean }): JSX.Element => {
 
     interface responseCallApi {
         items: object[],
         total_count: number,
     }
     interface Object {
-        cloneArrayProfiles: object[],
-        idSortReversed: number[]
+        cloneAllProfiles: object[],
+        idSortDesc: number[]
     }
 
     const [userSearch, setUserSearch] = useState('')
@@ -21,7 +21,7 @@ const Search = ({ alternatriveStyle }: { alternatriveStyle: boolean }) => {
     const [noResult, setNoResult] = useState(false)
     const [isLoading, setIsoLoading] = useState(false)
     const [rateLimitReach, setRateLimitReach] = useState(false)
-    const [counter, setCounter] = useState<number>(0)
+    const [counterSelected, setCounterSelected] = useState<number>(0)
     const [idProfileSelected, setIdProfileSelected] = useState<number[] | null>(null)
     const [allChecked, setAllChecked] = useState<boolean>(false)
     const [editMode, setEditMode] = useState<boolean>(false)
@@ -32,27 +32,27 @@ const Search = ({ alternatriveStyle }: { alternatriveStyle: boolean }) => {
         setUserSearch(e.target.value)
     }
 
-    function inverseOrderIndex(): Object | undefined {
-        let idSort: number[]
+    function indexDescAndCloneProfiles(): Object | undefined {
+        let idSortAsc: number[]
         const byValue = (a: number, b: number) => a - b;
         if (idProfileSelected && profiles != null) {
-            idSort = [...idProfileSelected].sort(byValue);
-            let idSortReversed = idSort.reverse();
-            let cloneArrayProfiles = profiles.slice(0);
-            return { idSortReversed, cloneArrayProfiles }
+            idSortAsc = [...idProfileSelected].sort(byValue);
+            let idSortDesc = idSortAsc.reverse();
+            let cloneAllProfiles = profiles.slice(0);
+            return { idSortDesc, cloneAllProfiles }
         }
     }
 
     function copyProfilesSelected(): void {
         if (profiles != null && idProfileSelected != null) {
-            let allArray: Object | undefined = inverseOrderIndex()
-            if (allArray !== undefined) {
-                for (const element of allArray.idSortReversed) {
+            let idDescAndProfiles: Object | undefined = indexDescAndCloneProfiles()
+            if (idDescAndProfiles !== undefined) {
+                for (const element of idDescAndProfiles.idSortDesc) {
                     let profileToDuplicate = profiles[element]
-                    allArray.cloneArrayProfiles.splice(element, 0, profileToDuplicate)
+                    idDescAndProfiles.cloneAllProfiles.splice(element, 0, profileToDuplicate)
                 }
-                setProfiles(allArray.cloneArrayProfiles)
-                setCounter(0)
+                setProfiles(idDescAndProfiles.cloneAllProfiles)
+                setCounterSelected(0)
                 setIdProfileSelected(null)
             }
         }
@@ -63,41 +63,41 @@ const Search = ({ alternatriveStyle }: { alternatriveStyle: boolean }) => {
             if (allChecked) {
                 setProfiles(null)
                 setAllChecked(false)
-                setCounter(0)
+                setCounterSelected(0)
                 setUserSearch('')
                 return
             }
-            let allArray: Object | undefined = inverseOrderIndex()
-            if (allArray !== undefined) {
-                for (const element of allArray.idSortReversed) {
-                    allArray.cloneArrayProfiles.splice(element, 1)
+            let idDescAndProfiles: Object | undefined = indexDescAndCloneProfiles()
+            if (idDescAndProfiles !== undefined) {
+                for (const element of idDescAndProfiles.idSortDesc) {
+                    idDescAndProfiles.cloneAllProfiles.splice(element, 1)
                 }
                 setIdProfileSelected(null)
-                setProfiles(allArray.cloneArrayProfiles)
+                setProfiles(idDescAndProfiles.cloneAllProfiles)
             }
         }
     }
 
     function selecAllProfiles() {
         if (profiles) {
-            var elements = document.getElementsByClassName('card__container__input') as HTMLCollectionOf<HTMLInputElement>
+            var inputsSelectProfile = document.getElementsByClassName('card__container__input') as HTMLCollectionOf<HTMLInputElement>
             if (!allChecked) {
                 setAllChecked(true)
-                for (let i = 0; i < elements.length; i++) {
-                    if (elements[i].checked === false) {
-                        elements[i].click();
+                for (let i = 0; i < inputsSelectProfile.length; i++) {
+                    if (inputsSelectProfile[i].checked === false) {
+                        inputsSelectProfile[i].click();
                     }
                 }
-                setCounter(elements.length)
+                setCounterSelected(inputsSelectProfile.length)
             }
             else {
-                for (let i = 0; i < elements.length; i++) {
-                    if (elements[i].checked === true) {
-                        elements[i].click();
+                for (let i = 0; i < inputsSelectProfile.length; i++) {
+                    if (inputsSelectProfile[i].checked === true) {
+                        inputsSelectProfile[i].click();
                     }
                 }
                 setAllChecked(false)
-                setCounter(0)
+                setCounterSelected(0)
             }
         }
     }
@@ -107,7 +107,6 @@ const Search = ({ alternatriveStyle }: { alternatriveStyle: boolean }) => {
             setEditMode(false)
             :
             setEditMode(true)
-        console.log(editMode)
     }
 
     async function callApi() {
@@ -137,10 +136,10 @@ const Search = ({ alternatriveStyle }: { alternatriveStyle: boolean }) => {
     }
 
     useEffect(() => {
-        if (counter === 0) {
+        if (counterSelected === 0) {
             setAllChecked(false)
         }
-    }, [counter])
+    }, [counterSelected])
 
     useEffect(() => {
         if (userSearch.length > 2) {
@@ -185,7 +184,7 @@ const Search = ({ alternatriveStyle }: { alternatriveStyle: boolean }) => {
                 <div id={editMode ? 'search__container__option' : 'search__container__option--disabled'}>
                     <div id='search__container__checkbox'>
                         <input type="checkbox" checked={allChecked} onChange={() => selecAllProfiles()} />
-                        <div>{counter}  elements selected</div>
+                        <div>{counterSelected}  elements selected</div>
                     </div>
                     <div id='search__container__bin__copy'>
                         <img id='img__bin' alt='bin' src={bin} onClick={() => deleteProfilesSelected()} />
@@ -196,11 +195,11 @@ const Search = ({ alternatriveStyle }: { alternatriveStyle: boolean }) => {
             <div id='search__display'>
                 {profiles &&
                     <DisplayProfiles
-                        counter={counter}
-                        setCounter={setCounter}
+                        counterSelected={counterSelected}
+                        setCounterSelected={setCounterSelected}
                         setIdProfileSelected={setIdProfileSelected}
                         setAllChecked={setAllChecked}
-                        array={profiles}
+                        profiles={profiles}
                         idProfileSelected={idProfileSelected}
                         editMode={editMode}
                         alternatriveStyle={alternatriveStyle}
@@ -217,4 +216,4 @@ const Search = ({ alternatriveStyle }: { alternatriveStyle: boolean }) => {
     )
 }
 
-export default Search
+export default SearchAndResult
