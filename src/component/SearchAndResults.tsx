@@ -4,12 +4,12 @@ import copy from '../asset/copy-svgrepo-com.svg'
 import { useState, useEffect } from "react"
 import DisplayProfiles from "./DisplayProfiles"
 import Spinner from './Spinner'
+import { callApi } from '../functions/callApi'
 import { indexDescAndCloneProfiles } from '../functions/indexDescAndCloneProfiles'
 
 
 interface props {
     alternatriveStyle: boolean,
-    // indexDescAndCloneProfiles: (params: { idProfileSelected: number[], profiles: object[] }) => Object | undefined
 }
 
 interface Object {
@@ -19,12 +19,8 @@ interface Object {
 
 const SearchAndResult = ({ alternatriveStyle }: props): JSX.Element => {
 
-    interface responseCallApi {
-        items: object[],
-        total_count: number,
-    }
 
-    const [userSearch, setUserSearch] = useState('')
+    const [userSearch, setUserSearch] = useState<string>('')
     const [profiles, setProfiles] = useState<object[] | null>(null)
     const [noResult, setNoResult] = useState(false)
     const [isLoading, setIsoLoading] = useState(false)
@@ -39,17 +35,6 @@ const SearchAndResult = ({ alternatriveStyle }: props): JSX.Element => {
     function handleSubmit(e: React.ChangeEvent<HTMLInputElement>) {
         setUserSearch(e.target.value)
     }
-
-    // function indexDescAndCloneProfiles(): Object | undefined {
-    //     let idSortAsc: number[]
-    //     const byValue = (a: number, b: number) => a - b;
-    //     if (idProfileSelected && profiles != null) {
-    //         idSortAsc = [...idProfileSelected].sort(byValue);
-    //         let idSortDesc = idSortAsc.reverse();
-    //         let cloneAllProfiles = profiles.slice(0);
-    //         return { idSortDesc, cloneAllProfiles }
-    //     }
-    // }
 
     function copyProfilesSelected(): void {
         if (profiles != null && idProfileSelected != null) {
@@ -117,30 +102,8 @@ const SearchAndResult = ({ alternatriveStyle }: props): JSX.Element => {
             setEditMode(true)
     }
 
-    async function callApi() {
-        try {
-            const response = await fetch(`https://api.github.com/search/users?q=${userSearch}`);
-            if (response.status === 403) {
-                setRateLimitReach(true)
-                setIsoLoading(false)
-                return
-            }
-            const allProfiles: responseCallApi = await response.json()
-            const profilesInArray: object[] = allProfiles.items
-
-            if (allProfiles.total_count === 0) {
-                setProfiles(null);
-                setNoResult(true)
-            }
-            if (allProfiles.total_count > 0) {
-                setProfiles(profilesInArray);
-            }
-            setIsoLoading(false)
-        }
-        catch (e) {
-            console.log(e)
-            setIsoLoading(false)
-        }
+    function getAllProfiles() {
+        timer = setTimeout(() => { callApi({ setRateLimitReach, setIsoLoading, setProfiles, setNoResult, userSearch }).then() }, 1000) as unknown as number
     }
 
     useEffect(() => {
@@ -154,7 +117,7 @@ const SearchAndResult = ({ alternatriveStyle }: props): JSX.Element => {
             setIsoLoading(true)
             setNoResult(false)
             setRateLimitReach(false)
-            timer = setTimeout(() => { callApi() }, 1000) as unknown as number
+            getAllProfiles()
         } else {
             setProfiles(null);
             setNoResult(false)

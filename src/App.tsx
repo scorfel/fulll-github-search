@@ -1,7 +1,5 @@
 import Header from './component/Header';
 import SearchAndResults from "./component/SearchAndResults"
-import { indexDescAndCloneProfiles } from './functions/indexDescAndCloneProfiles'
-
 import { useState } from 'react'
 import './App.css';
 

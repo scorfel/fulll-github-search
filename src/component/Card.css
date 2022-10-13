@@ -76,6 +76,10 @@
   box-shadow: 8px 7px 7px -3px #5C5C5C;
 }
 
+.card__avatar--alt {
+  margin-top: 30px;
+}
+
 .card__avatar--alt img {
   width: 82px;
   border-radius: 50%;
@@ -114,15 +118,57 @@
   margin-bottom: 20px;
 }
 
+/* alt style for checkbox*/
+.card__container--alt {
+  display: block;
+  position: absolute;
+  transform: translate(10px, 10px);
+  cursor: pointer;
+  font-size: 22px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.card__container--alt input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.card__container--alt:hover input~.checkmark {
+  background-color: #ccc;
+}
+
+.card__container--alt input:checked~.checkmark {
+  background-color: #2196F3;
+}
+
+.card__container--alt input:checked~.checkmark:after {
+  display: block;
+}
+
+.card__container--alt .checkmark:after {
+  left: 3px;
+  top: 3px;
+  width: 3px;
+  height: 3px;
+  border: solid rgb(0, 0, 0);
+  border-width: 0 2px 2px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
 
 /*------------------checkbox style------------------*/
 .card__container {
   display: block;
-  position: relative;
-  left: 6px;
-  top: 6px;
-  padding-left: 35px;
-  margin-bottom: 12px;
+  position: absolute;
+  transform: translate(5px, -80px);
   cursor: pointer;
   font-size: 22px;
   -webkit-user-select: none;

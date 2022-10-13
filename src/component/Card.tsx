@@ -62,7 +62,7 @@ const Card = ({
 
     return (
         <div className={alternatriveStyle ? "card--alt" : "card"}>
-            <label className={editMode ? "card__container" : "card__container--disabled"}>
+            <label className={editMode ? alternatriveStyle ? "card__container--alt" : "card__container" : "card__container--disabled"} >
                 <input className="card__container__input" value={idElement} type="checkbox" onChange={handleChange} checked={isChecked} />
                 <span className="checkmark"></span>
             </label>
