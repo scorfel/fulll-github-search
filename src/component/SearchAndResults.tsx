@@ -4,16 +4,24 @@ import copy from '../asset/copy-svgrepo-com.svg'
 import { useState, useEffect } from "react"
 import DisplayProfiles from "./DisplayProfiles"
 import Spinner from './Spinner'
+import { indexDescAndCloneProfiles } from '../functions/indexDescAndCloneProfiles'
 
-const SearchAndResult = ({ alternatriveStyle }: { alternatriveStyle: boolean }): JSX.Element => {
+
+interface props {
+    alternatriveStyle: boolean,
+    // indexDescAndCloneProfiles: (params: { idProfileSelected: number[], profiles: object[] }) => Object | undefined
+}
+
+interface Object {
+    cloneAllProfiles: object[],
+    idSortDesc: number[]
+}
+
+const SearchAndResult = ({ alternatriveStyle }: props): JSX.Element => {
 
     interface responseCallApi {
         items: object[],
         total_count: number,
-    }
-    interface Object {
-        cloneAllProfiles: object[],
-        idSortDesc: number[]
     }
 
     const [userSearch, setUserSearch] = useState('')
@@ -32,20 +40,20 @@ const SearchAndResult = ({ alternatriveStyle }: { alternatriveStyle: boolean }):
         setUserSearch(e.target.value)
     }
 
-    function indexDescAndCloneProfiles(): Object | undefined {
-        let idSortAsc: number[]
-        const byValue = (a: number, b: number) => a - b;
-        if (idProfileSelected && profiles != null) {
-            idSortAsc = [...idProfileSelected].sort(byValue);
-            let idSortDesc = idSortAsc.reverse();
-            let cloneAllProfiles = profiles.slice(0);
-            return { idSortDesc, cloneAllProfiles }
-        }
-    }
+    // function indexDescAndCloneProfiles(): Object | undefined {
+    //     let idSortAsc: number[]
+    //     const byValue = (a: number, b: number) => a - b;
+    //     if (idProfileSelected && profiles != null) {
+    //         idSortAsc = [...idProfileSelected].sort(byValue);
+    //         let idSortDesc = idSortAsc.reverse();
+    //         let cloneAllProfiles = profiles.slice(0);
+    //         return { idSortDesc, cloneAllProfiles }
+    //     }
+    // }
 
     function copyProfilesSelected(): void {
         if (profiles != null && idProfileSelected != null) {
-            let idDescAndProfiles: Object | undefined = indexDescAndCloneProfiles()
+            let idDescAndProfiles: Object | undefined = indexDescAndCloneProfiles({ idProfileSelected, profiles })
             if (idDescAndProfiles !== undefined) {
                 for (const element of idDescAndProfiles.idSortDesc) {
                     let profileToDuplicate = profiles[element]
@@ -58,7 +66,7 @@ const SearchAndResult = ({ alternatriveStyle }: { alternatriveStyle: boolean }):
         }
     }
 
-    function deleteProfilesSelected() {
+    function deleteProfilesSelected(): void {
         if (profiles != null && idProfileSelected != null) {
             if (allChecked) {
                 setProfiles(null)
@@ -67,7 +75,7 @@ const SearchAndResult = ({ alternatriveStyle }: { alternatriveStyle: boolean }):
                 setUserSearch('')
                 return
             }
-            let idDescAndProfiles: Object | undefined = indexDescAndCloneProfiles()
+            let idDescAndProfiles: Object | undefined = indexDescAndCloneProfiles({ idProfileSelected, profiles })
             if (idDescAndProfiles !== undefined) {
                 for (const element of idDescAndProfiles.idSortDesc) {
                     idDescAndProfiles.cloneAllProfiles.splice(element, 1)
@@ -78,7 +86,7 @@ const SearchAndResult = ({ alternatriveStyle }: { alternatriveStyle: boolean }):
         }
     }
 
-    function selecAllProfiles() {
+    function selecAllProfiles(): void {
         if (profiles) {
             var inputsSelectProfile = document.getElementsByClassName('card__container__input') as HTMLCollectionOf<HTMLInputElement>
             if (!allChecked) {
