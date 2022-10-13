@@ -103,7 +103,7 @@ const SearchAndResult = ({ alternatriveStyle }: props): JSX.Element => {
     }
 
     function getAllProfiles() {
-        timer = setTimeout(() => { callApi({ setRateLimitReach, setIsoLoading, setProfiles, setNoResult, userSearch }).then() }, 1000) as unknown as number
+        timer = setTimeout(() => { callApi({ setRateLimitReach, setIsoLoading, setProfiles, setNoResult, userSearch }) }, 1000) as unknown as number
     }
 
     useEffect(() => {

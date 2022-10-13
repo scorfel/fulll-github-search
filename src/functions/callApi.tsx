@@ -16,7 +16,7 @@ export async function callApi({ setRateLimitReach, setIsoLoading, setProfiles, s
         if (response.status === 403) {
             setRateLimitReach(true)
             setIsoLoading(false)
-            return { "error": "limit call reach" }
+            return
         }
         const allProfiles: responseCallApi = await response.json()
         const profilesInArray: object[] = allProfiles.items
@@ -24,17 +24,17 @@ export async function callApi({ setRateLimitReach, setIsoLoading, setProfiles, s
             setProfiles(null);
             setNoResult(true)
             setIsoLoading(false)
-            return { "result": "no profiles found" }
+            return
         }
         if (allProfiles.total_count > 0) {
             setProfiles(profilesInArray);
             setIsoLoading(false)
-            return { "result": "succes" }
+            return
         }
     }
     catch (e) {
         console.log(e)
         setIsoLoading(false)
-        return { "error": `error + ${e}` }
+        return
     }
 }
