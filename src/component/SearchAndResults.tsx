@@ -12,7 +12,7 @@ interface props {
     alternatriveStyle: boolean,
 }
 
-interface Object {
+interface objectProfileAndId {
     cloneAllProfiles: object[],
     idSortDesc: number[]
 }
@@ -38,7 +38,7 @@ const SearchAndResult = ({ alternatriveStyle }: props): JSX.Element => {
 
     function copyProfilesSelected(): void {
         if (profiles != null && idProfileSelected != null) {
-            let idDescAndProfiles: Object | undefined = indexDescAndCloneProfiles({ idProfileSelected, profiles })
+            let idDescAndProfiles: objectProfileAndId | undefined = indexDescAndCloneProfiles({ idProfileSelected, profiles })
             if (idDescAndProfiles !== undefined) {
                 for (const element of idDescAndProfiles.idSortDesc) {
                     let profileToDuplicate = profiles[element]
@@ -60,7 +60,7 @@ const SearchAndResult = ({ alternatriveStyle }: props): JSX.Element => {
                 setUserSearch('')
                 return
             }
-            let idDescAndProfiles: Object | undefined = indexDescAndCloneProfiles({ idProfileSelected, profiles })
+            let idDescAndProfiles: objectProfileAndId | undefined = indexDescAndCloneProfiles({ idProfileSelected, profiles })
             if (idDescAndProfiles !== undefined) {
                 for (const element of idDescAndProfiles.idSortDesc) {
                     idDescAndProfiles.cloneAllProfiles.splice(element, 1)

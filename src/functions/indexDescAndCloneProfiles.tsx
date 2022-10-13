@@ -1,5 +1,4 @@
 
-
 interface props {
     idProfileSelected: number[],
     profiles: object[]
