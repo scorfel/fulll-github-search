@@ -22,6 +22,7 @@ interface props {
 }
 
 let arrayIdSelected: number[]
+
 const Card = ({
     profile,
     counterSelected,
@@ -39,7 +40,7 @@ const Card = ({
     function handleChange(e: React.ChangeEvent<HTMLInputElement>): void {
         if (!isChecked) {
             setIsChecked(true)
-            setCounterSelected(counterSelected = counterSelected + 1)
+            setCounterSelected(counterSelected + 1)
             indexSelected = parseInt(e.target.value)
             arrayIdSelected.push(indexSelected);
             setIdProfileSelected(arrayIdSelected)
@@ -49,7 +50,7 @@ const Card = ({
             indexSelected = parseInt(e.target.value)
             let idToDeletee: number = arrayIdSelected.indexOf(indexSelected)
             arrayIdSelected.splice(idToDeletee, 1);
-            setCounterSelected(counterSelected = counterSelected - 1)
+            setCounterSelected(counterSelected - 1)
             setIdProfileSelected(arrayIdSelected)
         }
     }

@@ -17,6 +17,5 @@ export function indexDescAndCloneProfiles({ idProfileSelected, profiles }: props
         let cloneAllProfiles = profiles.slice(0);
         return { idSortDesc, cloneAllProfiles }
     }
-
 }
 

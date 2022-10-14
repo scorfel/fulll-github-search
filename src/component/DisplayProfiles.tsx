@@ -22,14 +22,14 @@ const DisplayProfiles = ({
     editMode,
     alternatriveStyle }: props): JSX.Element => {
 
-    let i: number = 0
+
     return (
         <div id="DisplayProfiles">
-            {profiles.map((profile: any) =>
+            {profiles.map((profile: any, key: number) =>
                 <Card
-                    key={i}
+                    key={key}
                     profiles={profiles}
-                    idElement={i++}
+                    idElement={key}
                     profile={profile}
                     counterSelected={counterSelected}
                     setCounterSelected={setCounterSelected}
