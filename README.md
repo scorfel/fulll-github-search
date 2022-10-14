@@ -2,17 +2,19 @@
 
 Ce projet a été créé avec [Create React App](https://github.com/facebook/create-react-app) et TypeScript
 
-## Style additionel
-Les valeurs en pixel présentes sur la maquette ont été appliquées sur le header et sur les profils à afficher. Cependant, le rendu des vignettes de profil est assez différent de celui présenté sur le design fourni.
-C’est pourquoi vous trouverez dans le header, un bouton ‘switch’ permettant de basculer sur un style alternatif, se rapprochant du visuel fourni dans le repo Github (mesures réalisées sur le design lui-même).
-
-## Organisation du projet
-Le dossier `./src/component/` contient l'ensemble des fichiers composant, ainsi que les fichiers css.
-Aucune dépendance n'a été instalée, hormis [Cypress](https://www.cypress.io/) pour les tests.
-
 ## Fonctionnement du projet
+
+### Style additionnel
+Les valeurs en pixel présentes sur la maquette ont été appliquées sur le header et sur les profils à afficher. Cependant, le rendu des vignettes de profil est assez différent de celui présenté sur le design fourni.
+C’est pourquoi vous trouverez dans le header, un bouton ‘switch’ permettant de basculer sur un style alternatif, se rapprochant du visuel fourni dans le repo Github ( les valeurs en pixel ont été récupérées directement sur le design ).
+
+### Organisation du projet
+Le dossier `./src/component/` contient l'ensemble des fichiers composant, ainsi que les fichiers css.
+Aucune dépendance n'a été installée, hormis [Cypress](https://www.cypress.io/) pour les tests.
+
+
 ### Requète sur l'api de Github
-Le composant `SearchAndResults.tsx` contient un input controlé, relié à un hook de state, qui lance un call api à partir de trois caractères :
+Le composant `SearchAndResults.tsx` contient un input contrôlé, relié à un hook de state, qui lance un call api à partir de trois caractères :
 ```javascript
 <input
     placeholder="Enter your search - min. 3 characters"
@@ -22,7 +24,7 @@ Le composant `SearchAndResults.tsx` contient un input controlé, relié à un ho
     onChange={handleSubmit}                          
 />
 ```
-Pour limiter l'envoi de requetes en trop grand nombre, nomtament lors de la frappe rapide de charactères sur le clavier, le call api s'effectue avec un timer d'une seconde, réinitialié à chaque event clavier.
+Pour limiter l'envoi de requêtes en trop grand nombre, notamment lors de la frappe rapide de caractères sur le clavier, le call api s'effectue avec un timer d'une seconde, réinitialisé à chaque event clavier.
 ```javascript
 ./src/functions/callApi.tsx
 
@@ -68,9 +70,9 @@ function getAllProfiles() {
 return () => clearTimeout(timer);
 ```
 Le retour du call api prend trois cas de réponses :
-* statuts 403, lorsque le nombre limite de requète par minute à été atteint ( 10 )
-* Lorsque la recher n'a pas retourné de résultats.
-* Lorsque des résultats ont été trouvés
+* statuts 403, lorsque le nombre limite de requête par minute à été atteint ( 10 )
+* Lorsque la recherche n'a pas retourné de résultats.
+* Lorsque des résultats ont été trouvés  
 ```javascript
 
 if (response.status === 403) {
@@ -91,6 +93,34 @@ if (allProfiles.total_count > 0) {
    return
 }                   
 ```
+Des affichages conditionnels sont alors générés selon le type de réponse
+
+
+```javascript
+./src/component/SearchAndResult.tsx
+<div id='search__display'>
+                {profiles &&
+                    <DisplayProfiles
+                        counterSelected={counterSelected}
+                        setCounterSelected={setCounterSelected}
+                        setIdProfileSelected={setIdProfileSelected}
+                        setAllChecked={setAllChecked}
+                        profiles={profiles}
+                        idProfileSelected={idProfileSelected}
+                        editMode={editMode}
+                        alternatriveStyle={alternatriveStyle}
+                    />
+                }
+                {noResult &&
+                    <p>No result</p>
+                }
+                {rateLimitReach &&
+                    <p>rate limit reached please try again later</p>
+                }
+            </div>
+
+```
+
 ### Affichage des résultats
 Les résultats obtenus sont transmis au composant `DisplayProfiles`, qui effectue une methode `map` sur le tableau des résultats:
 ```javascript
@@ -140,6 +170,8 @@ const DisplayProfiles = ({
 }
 ```
 Chaque passage de la methode `map` affiche le composant `Card`, qui récupère l'ensembles des informations du profile à afficher, ainsi que du state et des setters afin d'intégarir sur certains élément du profil ( lien, checkbox )
+
+
 
 
 
