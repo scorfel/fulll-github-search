@@ -2,13 +2,17 @@
 
 Ce projet a été créé avec [Create React App](https://github.com/facebook/create-react-app) et TypeScript  
 * [Fonctionnement du projet](#fonctionnement-du-projet)  
-* [Fonctionnement du projet](#style-additionnel)  
-* [Fonctionnement du projet](#organisation-du-projet)  
-* [Fonctionnement du projet](#requète-sur-lapi-de-github)  
-* [Fonctionnement du projet](#affichage-des-résultats)  
-* [Fonctionnement du projet](#mode-édition) 
-* [Fonctionnement du projet](#affichage-des-résultats) 
-* [Fonctionnement du projet](#affichage-des-résultats) 
+* [Style additionnel](#style-additionnel)  
+* [Organisation du projet](#organisation-du-projet)  
+* [Requête sur l’API Github](#requète-sur-lapi-de-github)  
+* [Affichage des résultats](#affichage-des-résultats)  
+* [Mode édition](#mode-édition) 
+* [Sélection des profils](#sélection-des-profils) 
+* [Sélection de tous les profils](#sélection-de-tous-les-profils) 
+* [Copie / suppression](#copie-ou-suppression-des-éléments-sélectionnés) 
+* [Tests avec Cypress](#test-avec-cypress) 
+* [Available scripts](#available-scripts)  
+
 ## Fonctionnement du projet
 
 ### Style additionnel
@@ -396,6 +400,4 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
 To learn React, check out the [React documentation](https://reactjs.org/).
-#� �f�u�l�l�l�-�g�i�t�h�u�b�-�s�e�a�r�c�h�
-�
-�
+
