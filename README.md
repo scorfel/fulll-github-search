@@ -1,7 +1,14 @@
 # Bienvenue son mon projet 'Github search'
 
-Ce projet a été créé avec [Create React App](https://github.com/facebook/create-react-app) et TypeScript
-
+Ce projet a été créé avec [Create React App](https://github.com/facebook/create-react-app) et TypeScript  
+* [Fonctionnement du projet](#fonctionnement-du-projet)  
+* [Fonctionnement du projet](#style-additionnel)  
+* [Fonctionnement du projet](#organisation-du-projet)  
+* [Fonctionnement du projet](#requète-sur-lapi-de-github)  
+* [Fonctionnement du projet](#affichage-des-résultats)  
+* [Fonctionnement du projet](#mode-édition) 
+* [Fonctionnement du projet](#affichage-des-résultats) 
+* [Fonctionnement du projet](#affichage-des-résultats) 
 ## Fonctionnement du projet
 
 ### Style additionnel
@@ -192,7 +199,8 @@ function handleChange(e: React.ChangeEvent<HTMLInputElement>): void {
 L’opération inverse s’effectue sur une sélection.
 
 #### Sélection de tous les profils
-Une checkbox est présente à côté du compteur de profils sélectionnés. Sur sélection de celle ci, l’ensemble des profils affiché est sélectionné :
+Une checkbox est présente à côté du compteur de profils sélectionnés. Sur l'activation de celle-ci, l’ensemble des profils affiché est sélectionné.
+Une condition vérifie sur chaque profil si celui-ci était déjà sélectionné ou non  :
 
 ```javascript
 ./src/component/SearchAndResult.tsx
@@ -224,6 +232,125 @@ function selecAllProfiles(): void {
 
 ```  
 
+#### Copie ou suppression des éléments sélectionnés
+
+Le concept global pour le fonctionnement des ces fonctionnalité est le suivant :
+Lors d’une sélection (unique ou multiple ) d’un profil, la valeur de sa clef d’index, qui représente sa position dans l’array contenant les profils, est sélectionnée, et ajoutée à un tableau vide.  
+Une copie de l’array contenant les profils récupérés via l’API est créée
+La modification demandée ( copy / delete ) est effectuée grâce au index récupérés, sur la copie du tableau des profils.  
+Le state des profils à afficher est mis à jour avec le tableau cloné modifié.  
+
+
+Récupération des clés d’index, lors d’une sélection : 
+```javascript
+./src/component/Card.tsx
+
+    function handleChange(e: React.ChangeEvent<HTMLInputElement>): void {
+        if (!isChecked) {
+            setIsChecked(true)
+            setCounterSelected(counterSelected + 1)
+            indexSelected = parseInt(e.target.value)
+            arrayIdSelected.push(indexSelected);
+            setIdProfileSelected(arrayIdSelected)
+        } else {
+            setAllChecked(false)
+            setIsChecked(false)
+            indexSelected = parseInt(e.target.value)
+            let idToDeletee: number = arrayIdSelected.indexOf(indexSelected)
+            arrayIdSelected.splice(idToDeletee, 1);
+            setCounterSelected(counterSelected - 1)
+            setIdProfileSelected(arrayIdSelected)
+        }
+    }
+ 
+```
+
+Lors de la modification demandée ( copy / delete ), la première étape consiste à traiter les index des profils récupérés. L’ordre de ceux-ci peut être aléatoire, selon comment la sélection a été effectuée.  
+Une fonction trie les index dans un ordre décroissant ( la modification copy / delete va ajouter / supprimer des éléments dans le tableau cloné. Si la première itération à lieu sur, par exemple, le premier élément du tableau, toutes les clés des éléments suivants vont être décalées, ce qui entraînera des erreurs dans les modifications, qui elles se basent sur les index récupérés, qui eux ne changent pas. )  
+Cet ordre décroissant permet l’itération de tous les éléments, sans changer la clé des éléments qui serviront ensuite à être copiés / supprimés.  
+
+
+```javascript
+./src/function/indexDescAndCloneProfiles.tsx
+
+function indexDescAndCloneProfiles({ idProfileSelected, profiles }: props): Object | undefined {
+    let idSortAsc: number[]
+    const byValue = (a: number, b: number) => a - b;
+    if (idProfileSelected && profiles != null) {
+        idSortAsc = [...idProfileSelected].sort(byValue);
+        let idSortDesc = idSortAsc.reverse();
+        let cloneAllProfiles = profiles.slice(0);
+        return { idSortDesc, cloneAllProfiles }
+    }
+}
+ 
+ 
+```
+
+La copie ou la suppression peuvent ensuite être effectués :
+
+
+```javascript
+./src/component/SearchAndResult.tsx
+
+    function copyProfilesSelected(): void {
+        if (profiles != null && idProfileSelected != null) {
+            let idDescAndProfiles: objectProfileAndId | undefined = indexDescAndCloneProfiles({ idProfileSelected, profiles })
+            if (idDescAndProfiles !== undefined) {
+                for (const element of idDescAndProfiles.idSortDesc) {
+                    let profileToDuplicate = profiles[element]
+                    idDescAndProfiles.cloneAllProfiles.splice(element, 0, profileToDuplicate)
+                }
+                setProfiles(idDescAndProfiles.cloneAllProfiles)
+                setCounterSelected(0)
+                setIdProfileSelected(null)
+            }
+        }
+    }
+ 
+ 
+ 
+```
+
+```javascript
+./src/component/SearchAndResult.tsx
+
+    function deleteProfilesSelected(): void {
+        if (profiles != null && idProfileSelected != null) {
+            if (allChecked) {
+                setProfiles(null)
+                setAllChecked(false)
+                setCounterSelected(0)
+                setUserSearch('')
+                return
+            }
+            let idDescAndProfiles: objectProfileAndId | undefined = indexDescAndCloneProfiles({ idProfileSelected, profiles })
+            if (idDescAndProfiles !== undefined) {
+                for (const element of idDescAndProfiles.idSortDesc) {
+                    idDescAndProfiles.cloneAllProfiles.splice(element, 1)
+                }
+                setIdProfileSelected(null)
+                setProfiles(idDescAndProfiles.cloneAllProfiles)
+            }
+        }
+    }
+ 
+ 
+ 
+ ```
+
+
+
+### Test avec Cypress
+
+
+ [Cypress.io](https://www.cypress.io/) a été utilisé afin d'effectuer des tests end to end.  
+ [comment installer Cypress](https://docs.cypress.io/guides/getting-started/installing-cypress)  
+ [comment lancer Cypress](https://docs.cypress.io/guides/getting-started/opening-the-app)  
+
+La série de tests Cypress  effectue l’ensemble des interactions possibles, afin de vérifier le bon fonctionnement de l’application.
+  
+  
 
 
 
