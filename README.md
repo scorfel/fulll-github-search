@@ -122,7 +122,7 @@ Des affichages conditionnels sont alors générés selon le type de réponse
 ```
 
 ### Affichage des résultats
-Les résultats obtenus sont transmis au composant `DisplayProfiles`, qui effectue une methode `map` sur le tableau des résultats:
+Les résultats obtenus sont transmis au composant `DisplayProfiles`, qui effectue une méthode `map` sur le tableau des résultats:
 ```javascript
 ./src/component/DisplayProfiles.tsx
 
@@ -169,9 +169,60 @@ const DisplayProfiles = ({
     )
 }
 ```
-Chaque passage de la methode `map` affiche le composant `Card`, qui récupère l'ensembles des informations du profile à afficher, ainsi que du state et des setters afin d'intégarir sur certains élément du profil ( lien, checkbox )
+Chaque passage de la méthode `map` affiche le composant `Card`, qui récupère l'ensembles des informations du profil à afficher, ainsi que du state et des setters permettant d'intégarir sur certains élément du profil ( lien, checkbox )
 
 
+### Mode édition
+
+L’application bénéficie d’un mode édition, qui s’active via le switch présent en haut à gauche des résultats.  
+Ce mode édition permet de sélectionner un ou plusieurs profils, et de copier ou supprimer les éléments sélectionnés ( modification faite uniquement sur le DOM )  
+
+#### Sélection des profils
+Sur le click d’un checkbox présente sur un profil, le state `isChecked` est passé à `true`, et le compteur de profils sélectionnés est incrémenté :
+```javascript
+./src/component/Card.tsx
+
+function handleChange(e: React.ChangeEvent<HTMLInputElement>): void {
+        if (!isChecked) {
+            setIsChecked(true)
+            setCounterSelected(counterSelected + 1)
+//suite de la fonction…
+
+```  
+L’opération inverse s’effectue sur une sélection.
+
+#### Sélection de tous les profils
+Une checkbox est présente à côté du compteur de profils sélectionnés. Sur sélection de celle ci, l’ensemble des profils affiché est sélectionné :
+
+```javascript
+./src/component/SearchAndResult.tsx
+
+function selecAllProfiles(): void {
+        if (profiles) {
+            var inputsSelectProfile = document.getElementsByClassName('card__container__input') as HTMLCollectionOf<HTMLInputElement>
+            if (!allChecked) {
+                setAllChecked(true)
+                for (let i = 0; i < inputsSelectProfile.length; i++) {
+                    if (inputsSelectProfile[i].checked === false) {
+                        inputsSelectProfile[i].click();
+                    }
+                }
+                setCounterSelected(inputsSelectProfile.length)
+            }
+            else {
+                for (let i = 0; i < inputsSelectProfile.length; i++) {
+                    if (inputsSelectProfile[i].checked === true) {
+                        inputsSelectProfile[i].click();
+                    }
+                }
+                setAllChecked(false)
+                setCounterSelected(0)
+            }
+        }
+    }
+ 
+
+```  
 
 
 
