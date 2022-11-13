@@ -18,8 +18,8 @@
   border-radius: 50%;
 }
 
-.card__profil,
-.card__profil--alt {
+.card__profile,
+.card__profile--alt {
   margin-top: 5px;
   display: flex;
   flex-direction: column;
@@ -27,7 +27,7 @@
   align-items: center;
 }
 
-.card__profil p {
+.card__profile p {
   margin: 0;
   font-size: 0.8em;
   font-weight: 600;
@@ -85,7 +85,7 @@
   border-radius: 50%;
 }
 
-.card__profil--alt p {
+.card__profile--alt p {
   margin: 0;
   font-size: 1.1em;
   font-weight: 700;

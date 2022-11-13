@@ -1,15 +1,15 @@
 import "./Card.css"
 import { useEffect, useState } from "react"
 
-interface profilcomplet {
+interface ProfileComplete {
     avatar_url: string,
     id: string
     login: string
     html_url: string
 }
 
-interface props {
-    profile: profilcomplet,
+interface Props {
+    profile: ProfileComplete,
     counterSelected: number,
     setCounterSelected: React.Dispatch<React.SetStateAction<number>>,
     setIdProfileSelected: React.Dispatch<React.SetStateAction<number[] | null>>,
@@ -18,7 +18,7 @@ interface props {
     profiles: object[],
     setAllChecked: React.Dispatch<React.SetStateAction<boolean>>,
     editMode: boolean
-    alternatriveStyle: boolean
+    alternativeStyle: boolean
 }
 
 let arrayIdSelected: number[]
@@ -32,7 +32,7 @@ const Card = ({
     profiles,
     setAllChecked,
     editMode,
-    alternatriveStyle }: props): JSX.Element => {
+    alternativeStyle }: Props): JSX.Element => {
 
     let indexSelected: number
     const [isChecked, setIsChecked] = useState<boolean>(false)
@@ -48,8 +48,8 @@ const Card = ({
             setAllChecked(false)
             setIsChecked(false)
             indexSelected = parseInt(e.target.value)
-            let idToDeletee: number = arrayIdSelected.indexOf(indexSelected)
-            arrayIdSelected.splice(idToDeletee, 1);
+            let idToDelete: number = arrayIdSelected.indexOf(indexSelected)
+            arrayIdSelected.splice(idToDelete, 1);
             setCounterSelected(counterSelected - 1)
             setIdProfileSelected(arrayIdSelected)
         }
@@ -62,19 +62,19 @@ const Card = ({
     }, [profiles])
 
     return (
-        <div className={alternatriveStyle ? "card--alt" : "card"}>
-            <label className={editMode ? alternatriveStyle ? "card__container--alt" : "card__container" : "card__container--disabled"} >
+        <div className={alternativeStyle ? "card--alt" : "card"}>
+            <label className={editMode ? alternativeStyle ? "card__container--alt" : "card__container" : "card__container--disabled"} >
                 <input className="card__container__input" value={idElement} type="checkbox" onChange={handleChange} checked={isChecked} />
                 <span className="checkmark"></span>
             </label>
-            <div className={alternatriveStyle ? "card__avatar--alt" : "card__avatar"}>
+            <div className={alternativeStyle ? "card__avatar--alt" : "card__avatar"}>
                 <img alt="user avatar" src={profile.avatar_url}></img>
             </div>
-            <div className={alternatriveStyle ? "card__profil--alt" : "card__profil"}>
+            <div className={alternativeStyle ? "card__profile--alt" : "card__profile"}>
                 <p>{profile.id}</p>
                 <p>{profile.login}</p>
             </div>
-            <div className={alternatriveStyle ? "card__link--alt" : "card__link"}>
+            <div className={alternativeStyle ? "card__link--alt" : "card__link"}>
                 <a rel="noreferrer" target='_blank' href={profile.html_url}>View profile</a>
             </div>
         </div>

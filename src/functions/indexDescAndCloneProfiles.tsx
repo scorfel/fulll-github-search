@@ -1,5 +1,5 @@
 
-interface props {
+interface Props {
     idProfileSelected: number[],
     profiles: object[]
 }
@@ -8,7 +8,7 @@ interface Object {
     idSortDesc: number[]
 }
 
-export function indexDescAndCloneProfiles({ idProfileSelected, profiles }: props): Object | undefined {
+export function indexDescAndCloneProfiles({ idProfileSelected, profiles }: Props): Object | undefined {
     let idSortAsc: number[]
     const byValue = (a: number, b: number) => a - b;
     if (idProfileSelected && profiles != null) {

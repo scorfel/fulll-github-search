@@ -5,12 +5,12 @@ import './App.css';
 
 function App() {
 
-  const [alternatriveStyle, setAlternatriveStyle] = useState<boolean>(false)
+  const [alternativeStyle, setAlternativeStyle] = useState<boolean>(false)
 
   return (
     <div className="App">
-      <Header alternatriveStyle={alternatriveStyle} setAlternatriveStyle={setAlternatriveStyle} />
-      <SearchAndResults alternatriveStyle={alternatriveStyle} />
+      <Header alternativeStyle={alternativeStyle} setAlternativeStyle={setAlternativeStyle} />
+      <SearchAndResults alternativeStyle={alternativeStyle} />
     </div>
   );
 }

@@ -8,16 +8,16 @@ import { callApi } from '../functions/callApi'
 import { indexDescAndCloneProfiles } from '../functions/indexDescAndCloneProfiles'
 
 
-interface props {
-    alternatriveStyle: boolean,
+interface Props {
+    alternativeStyle: boolean,
 }
 
-interface objectProfileAndId {
+interface ObjectProfileAndId {
     cloneAllProfiles: object[],
     idSortDesc: number[]
 }
 
-const SearchAndResult = ({ alternatriveStyle }: props): JSX.Element => {
+const SearchAndResult = ({ alternativeStyle }: Props): JSX.Element => {
 
 
     const [userSearch, setUserSearch] = useState<string>('')
@@ -38,7 +38,7 @@ const SearchAndResult = ({ alternatriveStyle }: props): JSX.Element => {
 
     function copyProfilesSelected(): void {
         if (profiles != null && idProfileSelected != null) {
-            let idDescAndProfiles: objectProfileAndId | undefined = indexDescAndCloneProfiles({ idProfileSelected, profiles })
+            let idDescAndProfiles: ObjectProfileAndId | undefined = indexDescAndCloneProfiles({ idProfileSelected, profiles })
             if (idDescAndProfiles !== undefined) {
                 for (const element of idDescAndProfiles.idSortDesc) {
                     let profileToDuplicate = profiles[element]
@@ -60,7 +60,7 @@ const SearchAndResult = ({ alternatriveStyle }: props): JSX.Element => {
                 setUserSearch('')
                 return
             }
-            let idDescAndProfiles: objectProfileAndId | undefined = indexDescAndCloneProfiles({ idProfileSelected, profiles })
+            let idDescAndProfiles: ObjectProfileAndId | undefined = indexDescAndCloneProfiles({ idProfileSelected, profiles })
             if (idDescAndProfiles !== undefined) {
                 for (const element of idDescAndProfiles.idSortDesc) {
                     idDescAndProfiles.cloneAllProfiles.splice(element, 1)
@@ -71,7 +71,7 @@ const SearchAndResult = ({ alternatriveStyle }: props): JSX.Element => {
         }
     }
 
-    function selecAllProfiles(): void {
+    function selectAllProfiles(): void {
         if (profiles) {
             var inputsSelectProfile = document.getElementsByClassName('card__container__input') as HTMLCollectionOf<HTMLInputElement>
             if (!allChecked) {
@@ -154,7 +154,7 @@ const SearchAndResult = ({ alternatriveStyle }: props): JSX.Element => {
                 </div>
                 <div id={editMode ? 'search__container__option' : 'search__container__option--disabled'}>
                     <div id='search__container__checkbox'>
-                        <input type="checkbox" checked={allChecked} onChange={() => selecAllProfiles()} />
+                        <input type="checkbox" checked={allChecked} onChange={() => selectAllProfiles()} />
                         <div>{counterSelected}  elements selected</div>
                     </div>
                     <div id='search__container__bin__copy'>
@@ -173,7 +173,7 @@ const SearchAndResult = ({ alternatriveStyle }: props): JSX.Element => {
                         profiles={profiles}
                         idProfileSelected={idProfileSelected}
                         editMode={editMode}
-                        alternatriveStyle={alternatriveStyle}
+                        alternativeStyle={alternativeStyle}
                     />
                 }
                 {noResult &&

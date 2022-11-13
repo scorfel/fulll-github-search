@@ -1,7 +1,7 @@
 import './DisplayProfiles.css'
 import Card from "./Card"
 
-interface props {
+interface Props {
     profiles: object[],
     counterSelected: number,
     setCounterSelected: React.Dispatch<React.SetStateAction<number>>,
@@ -9,7 +9,7 @@ interface props {
     idProfileSelected: number[] | null,
     setAllChecked: React.Dispatch<React.SetStateAction<boolean>>,
     editMode: boolean,
-    alternatriveStyle: boolean
+    alternativeStyle: boolean
 }
 
 const DisplayProfiles = ({
@@ -20,7 +20,7 @@ const DisplayProfiles = ({
     idProfileSelected,
     setAllChecked,
     editMode,
-    alternatriveStyle }: props): JSX.Element => {
+    alternativeStyle }: Props): JSX.Element => {
 
 
     return (
@@ -37,7 +37,7 @@ const DisplayProfiles = ({
                     idProfileSelected={idProfileSelected}
                     setAllChecked={setAllChecked}
                     editMode={editMode}
-                    alternatriveStyle={alternatriveStyle}
+                    alternativeStyle={alternativeStyle}
                 />
             )}
         </div>

@@ -3,25 +3,25 @@ import "./Header.css"
 
 const titre: string = "Github Search"
 
-interface props {
-    setAlternatriveStyle: React.Dispatch<React.SetStateAction<boolean>>,
-    alternatriveStyle: boolean
+interface Props {
+    setAlternativeStyle: React.Dispatch<React.SetStateAction<boolean>>,
+    alternativeStyle: boolean
 }
 
-const Header = ({ alternatriveStyle, setAlternatriveStyle }: props): JSX.Element => {
+const Header = ({ alternativeStyle, setAlternativeStyle }: Props): JSX.Element => {
 
-    function toogleStyle(): void {
-        alternatriveStyle ?
-            setAlternatriveStyle(false)
+    function toggleStyle(): void {
+        alternativeStyle ?
+            setAlternativeStyle(false)
             :
-            setAlternatriveStyle(true)
+            setAlternativeStyle(true)
     }
 
     return (
         <div id="header">
             <div id="header__container__switch">
                 <label className="switch">
-                    <input type="checkbox" onChange={() => { toogleStyle() }} />
+                    <input type="checkbox" onChange={() => { toggleStyle() }} />
                     <span className="slider round"></span>
                 </label>
                 <p>Alternative style</p>
